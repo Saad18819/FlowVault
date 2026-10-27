@@ -25,8 +25,9 @@ function createInvoice(address vend,uint256 lockamnt,uint256 deadline) public re
         isSettled:false
     });
 invoiceId++;
-return invoiceId;
+return currentId;
 }
+
 
 
 
