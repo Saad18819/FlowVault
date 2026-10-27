@@ -15,10 +15,19 @@ uint256 private invoiceId;
     }
 mapping(uint256 id => Invoice business) public idToInv;
 
-function createInvoice(address vend,uint256 lockamnt,uint256 deadline,bool state) public{
-    uint256 currentId = inoviceId;
-    idToInv[currentId] = Invoice
+function createInvoice(address vend,uint256 lockamnt,uint256 deadline) public returns(uint256){
+    uint256 currentId = invoiceId;
+    idToInv[currentId] = Invoice({
+        client:msg.sender,
+        vendor:vend,
+        amntlocked:lockamnt,
+        dueDate:deadline,
+        isSettled:false
+    });
+invoiceId++;
+return invoiceId;
 }
+
 
 
 
