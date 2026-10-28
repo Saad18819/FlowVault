@@ -35,6 +35,10 @@ invoiceId++;
 return currentId;
 }
 
+function deposit(uint256 Id) public{
+    
+}
+
 
 
 
