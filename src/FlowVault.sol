@@ -6,7 +6,7 @@ contract FlowVault is IERC20{
 
 uint256 private invoiceId;
 
-
+address pub;lic immutable usdtToken
 
     struct Invoice{
         address client,
@@ -16,6 +16,11 @@ uint256 private invoiceId;
         bool isSettled
     }
 mapping(uint256 id => Invoice business) public idToInv;
+
+
+constructor(address uSDT){
+    usdtToken = uSDT;
+}
 
 function createInvoice(address vend,uint256 lockamnt,uint256 deadline) public returns(uint256){
     uint256 currentId = invoiceId;
