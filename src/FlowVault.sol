@@ -6,6 +6,8 @@ contract FlowVault is IERC20{
 
 uint256 private invoiceId;
 
+
+
     struct Invoice{
         address client,
         address vendor,
