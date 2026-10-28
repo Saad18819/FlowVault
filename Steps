@@ -1,3 +1,4 @@
 1. forge init
 2. forge install openzeppelin/openzeppelin-contracts@v5.0.2  (got it from cyfrin repo)
 3. add path in .toml for openzeppelin & import it
+4. go through the rule of usdt from notebook
