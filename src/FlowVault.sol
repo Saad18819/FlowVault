@@ -6,7 +6,7 @@ contract FlowVault is IERC20{
 
 uint256 private invoiceId;
 
-address pub;lic immutable usdtToken
+address public immutable usdtToken
 
     struct Invoice{
         address client,
@@ -36,7 +36,7 @@ return currentId;
 }
 
 function deposit(uint256 Id) public{
-    
+
 }
 
 
