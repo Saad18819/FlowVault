@@ -2,7 +2,7 @@
 pragma solidity ^0.8.19;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-contract FlowVault is IERC20{
+contract FlowVault{
 
     error not_Owner();
     error amnt_Settled();
@@ -14,14 +14,14 @@ contract FlowVault is IERC20{
 
 uint256 private invoiceId;
 
-address public immutable usdtToken
+address public immutable usdtToken;
 
     struct Invoice{
-        address client,
-        address vendor,
-        uint256 amntlocked,
-        uint256 dueDate,
-        bool isSettled
+        address client;
+        address vendor;
+        uint256 amntlocked;
+        uint256 dueDate;
+        bool isSettled;
     }
 mapping(uint256 id => Invoice business) public idToInv;
 
@@ -48,7 +48,7 @@ return currentId;
 
 
 function deposit(uint256 Id) public{
-Invoice inv = idToInv[Id];
+Invoice storage inv = idToInv[Id];
 if(msg.sender != inv.client){
 revert not_Owner();
 }else if(inv.isSettled){
@@ -57,7 +57,7 @@ revert not_Owner();
 
 bool success = IERC20(usdtToken).transferFrom(msg.sender,address(this),inv.amntlocked);
 if(!success){
-    error deposit_TxnFailed();
+    revert deposit_TxnFailed();
 }
 
 
@@ -65,7 +65,7 @@ if(!success){
 
 function releaseFund(uint256 id) public{
 
-    Invoice inv = idToInv[Id];
+    Invoice storage inv = idToInv[id];
 
     if(msg.sender != inv.client || inv.isSettled){
         revert release_FundSettled();
@@ -83,8 +83,8 @@ if(!success){
 }
 
 function refundFund(uint256 id) public{
-    Invoice inv = idToInv[id];
-    if(isSettled || block.timestamp > inv.dueDate){
+    Invoice storage inv = idToInv[id];
+    if(inv.isSettled || block.timestamp > inv.dueDate){
         revert refund_FundSettled();
     }
     inv.isSettled = true;
