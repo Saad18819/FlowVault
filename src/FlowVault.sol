@@ -122,6 +122,6 @@ revert deadline_notPassed();
 emit refundFund(inv.client ,id ,inv.amntlocked);
 }
 
-// event stuff is remaining
+
 
 }
