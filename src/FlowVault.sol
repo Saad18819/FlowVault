@@ -8,7 +8,9 @@ contract FlowVault is IERC20{
     error amnt_Settled();
     error deposit_TxnFailed();
     error release_FundSettled();
-    error releaseFund_Failed();
+    error releaseFund_txnFailed();
+    error refund_FundSettled();
+    error refund_txnFailed();
 
 uint256 private invoiceId;
 
@@ -62,6 +64,7 @@ if(!success){
 }
 
 function releaseFund(uint256 id) public{
+
     Invoice inv = idToInv[Id];
 
     if(msg.sender != inv.client || inv.isSettled){
@@ -72,10 +75,23 @@ inv.isSettled = true;
 
 bool success = IERC20(usdtToken).transfer(inv.vendor, inv.amntlocked);
 if(!success){
-    revert releaseFund_Failed();
+    revert releaseFund_txnFailed();
 }
 
 
+
+}
+
+function refundFund(uint256 id) public{
+    Invoice inv = idToInv[id];
+    if(isSettled || block.timestamp > inv.dueDate){
+        revert refund_FundSettled();
+    }
+    inv.isSettled = true;
+    bool success = IERC20(usdtToken).transfer(inv.client,inv.amntlocked);
+    if(!success){
+        revert refund_txnFailed();
+    }
 }
 
 
