@@ -87,7 +87,8 @@ function refundFund(uint256 id) public{
     Invoice storage inv = idToInv[id];
     if(inv.isSettled){
         revert refund_FundSettled();
-    }else if(block.timestamp <= inv.dueDate){
+    }
+    else if(block.timestamp <= inv.dueDate){
 revert deadline_notPassed();
     }
     inv.isSettled = true;
