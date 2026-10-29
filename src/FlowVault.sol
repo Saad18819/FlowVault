@@ -34,8 +34,8 @@ constructor(address uSDT){
 
 event invoiceCreated(address indexed client, address indexed vendor,uint256 indexed Id,uint256 deadline,uint256 amnt);
 event depositFund(address indexed client , uint256 indexed id, uint256 amnt);
-event releaseFund(address indexed vendor , uint256  amnt , uint256 indexed id);
-event refundFund(address indexed client , uint256 indexed id , uint256 amnt);
+event releaseFunds(address indexed vendor , uint256  amnt , uint256 indexed id);
+event refundFunds(address indexed client , uint256 indexed id , uint256 amnt);
 
 
 
@@ -95,7 +95,7 @@ if(!success){
     revert releaseFund_txnFailed();
 }
 
-emit releaseFund(inv.vendor ,inv.amntlocked,id);
+emit releaseFunds(inv.vendor ,inv.amntlocked,id);
 
 }
 
@@ -119,7 +119,7 @@ revert deadline_notPassed();
     if(!success){
         revert refund_txnFailed();
     }
-emit refundFund(inv.client ,id ,inv.amntlocked);
+emit refundFunds(inv.client ,id ,inv.amntlocked);
 }
 
 
