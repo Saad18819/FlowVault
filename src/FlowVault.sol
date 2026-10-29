@@ -34,7 +34,7 @@ constructor(address uSDT){
 
 event invoiceCreated(address indexed client, address indexed vendor,uint256 indexed Id,uint256 deadline,uint256 amnt);
 event depositFund(address indexed client , uint256 indexed id, uint256 amnt);
-event releaseFund(address indexed vendor , uint256 indexed amnt , uint256 id);
+event releaseFund(address indexed vendor , uint256  amnt , uint256 indexed id);
 event refundFund(address indexed client , uint256 indexed id , uint256 amnt);
 
 
@@ -101,6 +101,10 @@ emit releaseFund(inv.vendor ,inv.amntlocked,id);
 
 function refundFund(uint256 id) public{
     Invoice storage inv = idToInv[id];
+
+    if(msg.sender != inv.client);{
+        revert not_Owner();
+    }
 
     if(inv.isSettled){
         revert refund_FundSettled();
