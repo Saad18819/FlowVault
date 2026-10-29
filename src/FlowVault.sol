@@ -12,6 +12,7 @@ contract FlowVault{
     error refund_FundSettled();
     error refund_txnFailed();
     error deadline_notPassed();
+    error invalid_deadline();
 
 uint256 private invoiceId;
 
@@ -34,6 +35,10 @@ constructor(address uSDT){
 
 function createInvoice(address vend,uint256 lockamnt,uint256 deadline) public returns(uint256){
     
+if(deadline <= block.timestamp){
+    revert invalid_deadline(); 
+}
+
     uint256 currentId = invoiceId;
     idToInv[currentId] = Invoice({
         client:msg.sender,
@@ -93,7 +98,7 @@ function refundFund(uint256 id) public{
     else if(block.timestamp <= inv.dueDate){
 revert deadline_notPassed();
     }
-    
+
     inv.isSettled = true;
     bool success = IERC20(usdtToken).transfer(inv.client,inv.amntlocked);
     if(!success){
