@@ -85,12 +85,15 @@ if(!success){
 
 function refundFund(uint256 id) public{
     Invoice storage inv = idToInv[id];
+
     if(inv.isSettled){
         revert refund_FundSettled();
     }
+
     else if(block.timestamp <= inv.dueDate){
 revert deadline_notPassed();
     }
+    
     inv.isSettled = true;
     bool success = IERC20(usdtToken).transfer(inv.client,inv.amntlocked);
     if(!success){
