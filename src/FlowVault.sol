@@ -102,7 +102,7 @@ emit releaseFund(inv.vendor ,inv.amntlocked,id);
 function refundFund(uint256 id) public{
     Invoice storage inv = idToInv[id];
 
-    if(msg.sender != inv.client);{
+    if(msg.sender != inv.client){
         revert not_Owner();
     }
 
