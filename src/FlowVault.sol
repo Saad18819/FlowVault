@@ -32,6 +32,11 @@ constructor(address uSDT){
     usdtToken = uSDT;
 }
 
+event invoiceCreated(address indexed client, address indexed vendor,uint256 indexed Id,uint256 deadline,uint256 amnt);
+
+
+
+
 
 function createInvoice(address vend,uint256 lockamnt,uint256 deadline) public returns(uint256){
     
@@ -47,7 +52,9 @@ if(deadline <= block.timestamp){
         dueDate:deadline,
         isSettled:false
     });
+   emit invoiceCreated(msg.sender,vend,currentId,deadline,lockamnt);
 invoiceId++;
+
 return currentId;
 }
 
