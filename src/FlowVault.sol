@@ -62,9 +62,11 @@ if(!success){
 
 function releaseFund(uint256 id) public{
     Invoice inv = idToInv[Id];
+
     if(msg.sender != inv.client || inv.isSettled){
         revert release_FundSettled();
     }
+    
 }
 
 
