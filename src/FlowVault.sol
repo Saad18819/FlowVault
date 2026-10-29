@@ -7,6 +7,7 @@ contract FlowVault is IERC20{
     error not_Owner();
     error amnt_Settled();
     error deposit_TxnFailed();
+    error release_FundSettled();
 
 uint256 private invoiceId;
 
@@ -60,7 +61,10 @@ if(!success){
 }
 
 function releaseFund(uint256 id) public{
-    
+    Invoice inv = idToInv[Id];
+    if(msg.sender != inv.client || inv.isSettled){
+        revert release_FundSettled();
+    }
 }
 
 
