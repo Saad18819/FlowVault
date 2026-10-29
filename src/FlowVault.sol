@@ -36,7 +36,7 @@ constructor(address uSDT){
 function createInvoice(address vend,uint256 lockamnt,uint256 deadline) public returns(uint256){
     
 if(deadline <= block.timestamp){
-    revert invalid_deadline(); 
+    revert invalid_deadline();
 }
 
     uint256 currentId = invoiceId;
