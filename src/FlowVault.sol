@@ -33,7 +33,9 @@ constructor(address uSDT){
 }
 
 event invoiceCreated(address indexed client, address indexed vendor,uint256 indexed Id,uint256 deadline,uint256 amnt);
-
+event depositFund(address indexed client , uint256 indexed id, uint256 amnt);
+event releaseFund(address indexed vendor , uint256 indexed amnt , uint256 id);
+event refundFund(address indexed client , uint256 indexed id , uint256 amnt);
 
 
 
@@ -72,9 +74,11 @@ bool success = IERC20(usdtToken).transferFrom(msg.sender,address(this),inv.amntl
 if(!success){
     revert deposit_TxnFailed();
 }
-
+emit depositFund(msg.sender ,Id,inv.amntlocked);
 
 }
+
+
 
 function releaseFund(uint256 id) public{
 
@@ -91,7 +95,7 @@ if(!success){
     revert releaseFund_txnFailed();
 }
 
-
+emit releaseFund(inv.vendor ,inv.amntlocked,id);
 
 }
 
@@ -111,6 +115,7 @@ revert deadline_notPassed();
     if(!success){
         revert refund_txnFailed();
     }
+emit refundFund(inv.client ,id ,inv.amntlocked);
 }
 
 // event stuff is remaining
