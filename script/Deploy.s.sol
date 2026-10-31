@@ -7,7 +7,7 @@ import {MockUSDT} from "../test/test.t.sol";
 
 contract DeployFlowVault is Script{
   
-    function run() external returns(FlowVault){
+    function run() external returns(FlowVault,address){
 
   address uSDT;
     uint256 deployerPrivateKey = vm.envUint("PrivateKey");
@@ -20,11 +20,12 @@ contract DeployFlowVault is Script{
     }else{
         uSDT = 0xcedfB56113143d55b2358b8CFbB0dEB5Ad2f55a7;
     }
+    
         vm.startBroadcast(deployerPrivateKey);
         FlowVault flowy = new FlowVault(uSDT);
         vm.stopBroadcast();
 
-        return flowy;
+        return (flowy,uSDT);
     }
 
 }
