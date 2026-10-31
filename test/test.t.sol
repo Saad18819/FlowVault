@@ -22,14 +22,19 @@ FlowVault public vault;
 MockUSDT public mocky;
 address usdt;
 
-address Saad = makeAddr("Saad");
+address saad= makeAddr("Saad");
 
 function setUp() external{
+
     DeployFlowVault dep = new DeployFlowVault();
     (vault,usdt) = dep.run();
     mocky = MockUSDT(usdt);
+mocky.mint(saad,1000 * 1e6);
+
 
 }
+
+
 
 
 }
