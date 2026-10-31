@@ -16,8 +16,10 @@ contract MockUSDT is ERC20{
 contract FlowVaulttesting is Test{
 FlowVault public vault;
 MockUSDT public mocky;
+address usdt;
 
 function setUp() external{
-    
+    DeployFlowVault dep = 
+    (vault,usdt) = 
 }
 }
