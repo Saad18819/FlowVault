@@ -15,5 +15,9 @@ contract MockUSDT is ERC20{
 
 contract FlowVaulttesting is Test{
 FlowVault public vault;
-MockUSDT
+MockUSDT public mocky;
+
+function setUp() external{
+    
+}
 }
