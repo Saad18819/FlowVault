@@ -7,8 +7,12 @@ import {FlowVault} from "../src/FlowVault.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract MockUSDT is ERC20{
-    constructor(uint256 supply){"Mock USDT","mUSDT"){
+    constructor(uint256 supply)(Mock USDT","mUSDT"){
         _mint(msg.sender,supply);
+    }
+
+    function mint(address to,uint256 amnt) external{
+        _mint(to,amnt);
     }
 }
 
@@ -18,8 +22,14 @@ FlowVault public vault;
 MockUSDT public mocky;
 address usdt;
 
+address Saad = makeAddr("Saad");
+
 function setUp() external{
     DeployFlowVault dep = new DeployFlowVault();
-    (vault,usdt) = 
+    (vault,usdt) = dep.run();
+    mocky = MockUSDT(usdt);
+
 }
+
+
 }
