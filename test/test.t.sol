@@ -19,7 +19,7 @@ MockUSDT public mocky;
 address usdt;
 
 function setUp() external{
-    DeployFlowVault dep = 
+    DeployFlowVault dep = new DeployFlowVault();
     (vault,usdt) = 
 }
 }
